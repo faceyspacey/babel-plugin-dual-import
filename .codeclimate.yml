@@ -21,7 +21,8 @@ engines:
 
 ratings:
    paths:
-   - "src/**"
+   - "index.js"
+   - "importCss.js"
 
 exclude_paths:
 - "docs/"
