@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`1. static import 1`] = `
+"
+import(\\"./Foo\\")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'Foo' */\\"./Foo\\"), _importCss(\\"Foo\\")]);
+"
+`;
+
+exports[`2. static import (with relative paths) 1`] = `
+"
+import(\\"../../Foo\\")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'Foo' */\\"../../Foo\\"), _importCss(\\"Foo\\")]);
+"
+`;
+
+exports[`3. static import (with file extension) 1`] = `
+"
+import(\\"./Foo.js\\")
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'Foo' */\\"./Foo.js\\"), _importCss(\\"Foo\\")]);
+"
+`;
+
+exports[`4. static import (string template) 1`] = `
+"
+import(\`./base\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'base' */\`./base\`), _importCss(\`base\`)]);
+"
+`;
+
+exports[`5. static import (string template + relative paths) 1`] = `
+"
+import(\`../../base\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'base' */\`../../base\`), _importCss(\`base\`)]);
+"
+`;
+
+exports[`6. dynamic import (string template) 1`] = `
+"
+import(\`./base/\${page}\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'base/[request]' */\`./base/\${page}\`), _importCss(\`base/\${page}\`)]);
+"
+`;
+
+exports[`7. dynamic import (string template - dynamic at 1st segment) 1`] = `
+"
+import(\`./\${page}\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: '[request]' */\`./\${page}\`), _importCss(\`\${page}\`)]);
+"
+`;
+
+exports[`8. dynamic import (string template + relative paths) 1`] = `
+"
+import(\`../../base/\${page}\`)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
+Promise.all([import( /* webpackChunkName: 'base/[request]' */\`../../base/\${page}\`), _importCss(\`base/\${page}\`)]);
+"
+`;
