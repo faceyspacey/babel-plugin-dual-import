@@ -1,45 +1,45 @@
-# babel-plugin-universal-import [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/faceyspacey/Lobby)
+# babel-plugin-dual-import [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/faceyspacey/Lobby)
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/babel-plugin-universal-import">
-    <img src="https://img.shields.io/npm/v/babel-plugin-universal-import.svg" alt="Version" />
+  <a href="https://www.npmjs.com/package/babel-plugin-dual-import">
+    <img src="https://img.shields.io/npm/v/babel-plugin-dual-import.svg" alt="Version" />
   </a>
 
-  <a href="https://travis-ci.org/faceyspacey/babel-plugin-universal-import">
-    <img src="https://travis-ci.org/faceyspacey/babel-plugin-universal-import.svg?branch=master" alt="Build Status" />
+  <a href="https://travis-ci.org/faceyspacey/babel-plugin-dual-import">
+    <img src="https://travis-ci.org/faceyspacey/babel-plugin-dual-import.svg?branch=master" alt="Build Status" />
   </a>
 
-  <a href="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-universal-import/coverage">
-    <img src="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-universal-import/badges/coverage.svg" alt="Coverage Status"/>
+  <a href="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-dual-import/coverage">
+    <img src="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-dual-import/badges/coverage.svg" alt="Coverage Status"/>
   </a>
 
   <a href="https://greenkeeper.io">
-    <img src="https://badges.greenkeeper.io/faceyspacey/babel-plugin-universal-import.svg" alt="Green Keeper" />
+    <img src="https://badges.greenkeeper.io/faceyspacey/babel-plugin-dual-import.svg" alt="Green Keeper" />
   </a>
 
-  <a href="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-universal-import">
-    <img src="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-universal-import/badges/gpa.svg" alt="GPA" />
+  <a href="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-dual-import">
+    <img src="https://lima.codeclimate.com/github/faceyspacey/babel-plugin-dual-import/badges/gpa.svg" alt="GPA" />
   </a>
 
-  <a href="https://www.npmjs.com/package/babel-plugin-universal-import">
-    <img src="https://img.shields.io/npm/dt/babel-plugin-universal-import.svg" alt="Downloads" />
+  <a href="https://www.npmjs.com/package/babel-plugin-dual-import">
+    <img src="https://img.shields.io/npm/dt/babel-plugin-dual-import.svg" alt="Downloads" />
   </a>
 
-  <a href="https://www.npmjs.com/package/babel-plugin-universal-import">
-    <img src="https://img.shields.io/npm/l/babel-plugin-universal-import.svg" alt="License" />
+  <a href="https://www.npmjs.com/package/babel-plugin-dual-import">
+    <img src="https://img.shields.io/npm/l/babel-plugin-dual-import.svg" alt="License" />
   </a>
 </p>
 
 
 ## Installation
 ```
-yarn add babel-plugin-universal-import
+yarn add babel-plugin-dual-import
 ```
 *.babelrc:*
 ```js
 {
   "presets": [whatever you usually have],
-  "plugins": ["universal-import"]
+  "plugins": ["dual-import"]
 }
 ```
 
@@ -48,63 +48,56 @@ yarn add babel-plugin-universal-import
 Taking from the [test snapshots](./__tests__/__snapshots__/index.js.snap), it does this:
 
 ```js
-universal(import('./Foo.js'))
+import('./Foo.js')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { importCss as _importCss } from 'babel-plugin-universal-import/importCss.js'
-import _path from 'path'
-import { universalImport as _universalImport } from 'babel-plugin-universal-import/universalImport.js'
+import { importCss } from 'babel-plugin-dual-import/importCss.js'
 
-universal(_universalImport({
-  chunkName: () => 'Foo',
-  path: () => _path.join(__dirname, './Foo.js'),
-  resolve: () => require.resolveWeak('./Foo.js'),
-  load: () => Promise.all([import( /* webpackChunkName: 'Foo' */ './Foo.js'), _importCss('Foo')]),
-  id: './Foo.js',
-  file: 'parentFile.js',
-}))
+Promise.all([import( /* webpackChunkName: 'Foo' */ './Foo\\'), importCss('Foo')]);
+
 ```
 
 And if you're using dynamic imports:
 
 ```js
-universal(({ page }) => import(`../async/${page}`))
+import(`../base/${page}`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { importCss as _importCss } from 'babel-plugin-universal-import/importCss.js'
-import _path from 'path'
-import { universalImport as _universalImport } from 'babel-plugin-universal-import/universalImport.js'
+import { importCss } from 'babel-plugin-dual-import/importCss.js'
 
-universal(({ page }) => _universalImport({
-  chunkName: () => `async/${page}`,
-  path: () => _path.join(__dirname, `../async/${page}`),
-  resolve: () => require.resolveWeak(`../async/${page}`),
-  load: () => Promise.all([import( /* webpackChunkName: 'async/[request]' */ `../async/${page}`), _importCss(`async/${page}`)]),
-  id: '../async/${page}',
-  file: 'parentFile.js',
-}));
+Promise.all([import( /* webpackChunkName: 'base/[request]' */ `./base/${page}`), importCss(`base/${page}`)]);
 ```
 
-It names all your chunks using *magic comments* 🔮 behind the scenes and is derived from the imported file. This works with both static and dynamic import paths, as you can see above.
+It names all your chunks using *"magic comments"* 🔮 behind the scenes and is derived from the imported file. It's *so magic* you don't gotta use "magic comments" anymore. This works with both static and dynamic import paths, as you can see above.
 
-Otherwise, what it's doing is providing all the different types of requires/paths/imports/etc needed by tools like [react-universal-component](https://github.com/faceyspacey/react-universal-component) to universally render your component.
 
-The targeted **use-case** for all this is dynamic imports where you can pass a `page` prop to the resulting component, thereby allowing you to create one `<UniversalComponent page={page} />` for a large number your components. This is a major upgrade to the previous way of having to make a hash of a million async components in a wrapping component. You no longer have to think about *Universal Components* as anything different than your other components that use simple HoCs.
+## How do I Serve the Css:
 
-Perhaps the coolest part however is that it also attempts to import a separate CSS file along with js chunks for optimum chunk sizes, caching and performance. Look in what `Promise.all` does. 
+**Use [webpack-flush-chunks](https://github.com/faceyspacey/webpack-flush-chunks) to serve a hash of chunk names to css files. It's built to work with this.** `importCss(chunkName)` will retreive it from there.
 
-And maybe even *cooler* to some: you don't have to do `universal(() => import())`. I.e. you don't have to wrap it in a function any longer when using `react-universal-component`, similar to `dynamic(import())` in Next.js...*unless of course you're making use of the awesome props feature, as showcased via the `page` prop.*
+If you don't wanna do that, you can dig through your webpack stats and manually embed the following in the HTML you serve:
 
+```html
+<script>
+  window.__CSS_CHUNKS__ = {
+    Foo: '/static/Foo.css',
+    'base/Page1': '/static/base/Page1.css',
+    'base/Page2': '/static/base/Page2.css',
+  }
+</script>
+```
 
 ## Babel Server Or Webpack < 2.2.20
 
 If your compiling the server with Babel, you may need to add this babel-plugin as well: [babel-plugin-dynamic-import-webpack](https://github.com/airbnb/babel-plugin-dynamic-import-webpack). And if you're using a version of Webpack before 2.2.0, you also must add it.
 
+
 ## Caveat
 
-Lastly, to the discerning eye, you may be wondering if the return of `import()` is still *thenable*?? It is! However, if you don't call `.then` on it, somewhere (perhaps in the components like *react-universal-component* that you pass it to), then it won't perform the import. Since most of us are using modules, which we need to do something with in the `then` callback, that's not a problem. But if you happen to be importing a module that does its own setup, such as attaches something to the `window` object, well then you just need to call `.then()` to trigger it. That's a rare case these days, which is why we decided to go with the simplicity seen here. And yes, async await works too.
+The chunk name is created out of the path you provide *(stripping slashes, dots and extension)*. So if in one dir you have `./Page` and in another place you have `../components/Page`, well then you gotta do the same for the first one even if you're already in the same directory. I.e. `components` gotta be the first named path segment in both cases.
+
 
 ## Contributing
 
@@ -118,5 +111,5 @@ Reviewing a package's tests are a great way to get familiar with it. It's direct
 Below is a screenshot of this module's tests running in [Wallaby](https://wallabyjs.com) *("An Integrated Continuous Testing Tool for JavaScript")* which everyone in the React community should be using. It's fantastic and has taken my entire workflow to the next level. It re-runs your tests on every change along with comprehensive logging, bi-directional linking to your IDE, in-line code coverage indicators, **and even snapshot comparisons + updates for Jest!** I requestsed that feature by the way :). It's basically a substitute for live-coding that inspires you to test along your journey.
 
 
-![babel-plugin-universal-import screenshot](./screenshot.png)
+![babel-plugin-dual-import screenshot](./screenshot.png)
 
