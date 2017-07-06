@@ -7,7 +7,7 @@ import(\\"./Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'Foo' */\\"./Foo\\"), _importCss(\\"Foo\\")]);
+Promise.all([import( /* webpackChunkName: 'Foo' */\\"./Foo\\"), _importCss(\\"Foo\\")]).then(proms => proms[0]);
 "
 `;
 
@@ -18,7 +18,7 @@ import(\\"../../Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'Foo' */\\"../../Foo\\"), _importCss(\\"Foo\\")]);
+Promise.all([import( /* webpackChunkName: 'Foo' */\\"../../Foo\\"), _importCss(\\"Foo\\")]).then(proms => proms[0]);
 "
 `;
 
@@ -29,7 +29,7 @@ import(\\"./Foo.js\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'Foo' */\\"./Foo.js\\"), _importCss(\\"Foo\\")]);
+Promise.all([import( /* webpackChunkName: 'Foo' */\\"./Foo.js\\"), _importCss(\\"Foo\\")]).then(proms => proms[0]);
 "
 `;
 
@@ -40,7 +40,7 @@ import(\`./base\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'base' */\`./base\`), _importCss(\`base\`)]);
+Promise.all([import( /* webpackChunkName: 'base' */\`./base\`), _importCss(\`base\`)]).then(proms => proms[0]);
 "
 `;
 
@@ -51,7 +51,7 @@ import(\`../../base\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'base' */\`../../base\`), _importCss(\`base\`)]);
+Promise.all([import( /* webpackChunkName: 'base' */\`../../base\`), _importCss(\`base\`)]).then(proms => proms[0]);
 "
 `;
 
@@ -62,7 +62,7 @@ import(\`./base/\${page}\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'base/[request]' */\`./base/\${page}\`), _importCss(\`base/\${page}\`)]);
+Promise.all([import( /* webpackChunkName: 'base/[request]' */\`./base/\${page}\`), _importCss(\`base/\${page}\`)]).then(proms => proms[0]);
 "
 `;
 
@@ -73,7 +73,7 @@ import(\`./\${page}\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: '[request]' */\`./\${page}\`), _importCss(\`\${page}\`)]);
+Promise.all([import( /* webpackChunkName: '[request]' */\`./\${page}\`), _importCss(\`\${page}\`)]).then(proms => proms[0]);
 "
 `;
 
@@ -84,6 +84,6 @@ import(\`../../base/\${page}\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _importCss from \\"babel-plugin-universal-import/importCss.js\\";
-Promise.all([import( /* webpackChunkName: 'base/[request]' */\`../../base/\${page}\`), _importCss(\`base/\${page}\`)]);
+Promise.all([import( /* webpackChunkName: 'base/[request]' */\`../../base/\${page}\`), _importCss(\`base/\${page}\`)]).then(proms => proms[0]);
 "
 `;
