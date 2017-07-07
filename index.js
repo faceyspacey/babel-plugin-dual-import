@@ -1,14 +1,16 @@
 module.exports = function ({ types: t, template }) {
   const visited = Symbol('visited')
   const importCssId = Symbol('importCssId')
-  const loadTemplate = template('Promise.all([IMPORT, IMPORT_CSS(MODULE)]).then(proms => proms[0])')
+  const loadTemplate = template(
+    'Promise.all([IMPORT, IMPORT_CSS(MODULE)]).then(proms => proms[0])'
+  )
   const getImportArgPath = p => p.parentPath.get('arguments')[0]
   const trimChunkName = baseDir => baseDir.replace(/^[./]+|(\.js$)/g, '')
 
   function getImportCss(p) {
     if (!p.hub.file[importCssId]) {
       const importCss = p.hub.file.addImport(
-        'babel-plugin-universal-import/importCss.js',
+        'babel-plugin-dual-import/importCss.js',
         'default',
         'importCss'
       )
