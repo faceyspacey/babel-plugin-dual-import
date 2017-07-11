@@ -32,6 +32,10 @@
 
 ![babel-plugin-dual-import diagram](https://raw.githubusercontent.com/faceyspacey/babel-plugin-dual-import/master/diagram.png)
 
+To learn about what this does, read its introduction article:
+https://medium.com/@faceyspacey/webpacks-import-will-soon-fetch-js-css-here-s-how-you-do-it-today-4eb5b4929852
+
+
 ## Installation
 ```
 yarn add babel-plugin-dual-import
