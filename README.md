@@ -100,6 +100,48 @@ If you don't wanna do that, you can dig through your webpack stats and manually 
 </script>
 ```
 
+## Usage with [react-universal-component](https://github.com/faceyspacey/react-universal-component) and [webpack-flush-chunks](https://github.com/faceyspacey/webpack-flush-chunks)
+
+When using `webpack-flush-chunks` you will have to supply the `chunkNames` option, not the `moduleIds` option since this plugin is based on chunk names. Here's an example:
+
+*src/components/App.js:*
+```js
+const UniversalComponent = universal(() => import('./Foo'), {
+  resolve: () => require.resolveWeak('./Foo'),
+  chunkName: 'Foo'
+})
+
+const UniversalDynamicComponent = universal(() => import(`./base/${page}`), {
+  resolve: ({ page }) => require.resolveWeak(`./base/${page}`),
+  chunkName: ({ page }) => `base/${page}`
+})
+
+```
+*server/render.js:*
+```js
+import { flushChunkNames } from 'react-universal-component/server'
+import flushChunks from 'webpack-flush-chunks'
+
+const app = ReactDOMServer.renderToString(<App />)
+const { js, styles, cssHash } = flushChunks(webpackStats, {
+  chunkNames: flushChunkNames()
+})
+
+res.send(`
+  <!doctype html>
+  <html>
+    <head>
+      ${styles}
+    </head>
+    <body>
+      <div id="root">${app}</div>
+      ${js}
+      ${cssHash}
+    </body>
+  </html>
+`)
+```
+
 ## Babel Server Or Webpack < 2.2.20
 
 If your compiling the server with Babel, you may need to add this babel-plugin as well: [babel-plugin-dynamic-import-webpack](https://github.com/airbnb/babel-plugin-dynamic-import-webpack). And if you're using a version of Webpack before 2.2.0, you also must add it.
