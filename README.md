@@ -57,7 +57,7 @@ import('./Foo.js')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { importCss } from 'babel-plugin-dual-import/importCss.js'
+import importCss from 'babel-plugin-dual-import/importCss.js'
 
 Promise.all([
   import( /* webpackChunkName: 'Foo' */ './Foo'),
@@ -73,12 +73,12 @@ import(`../base/${page}`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { importCss } from 'babel-plugin-dual-import/importCss.js'
+import importCss from 'babel-plugin-dual-import/importCss.js'
 
 Promise.all([
   import( /* webpackChunkName: 'base/[request]' */ `./base/${page}`),
-  importCss(`base/${page}`)]
-).then(promises => promises[0]);
+  importCss(`base/${page}`)
+]).then(promises => promises[0]);
 ```
 
 It names all your chunks using *"magic comments"* 🔮 behind the scenes and is derived from the imported file. It's *so magic* you don't gotta use "magic comments" anymore. This works with both static and dynamic import paths, as you can see above.
