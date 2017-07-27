@@ -1,4 +1,4 @@
-# babel-plugin-dual-import [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/faceyspacey/Lobby)
+# babel-plugin-dual-import [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/Reactlandia/Lobby)
 
 <p align="center">
   <a href="https://www.npmjs.com/package/babel-plugin-dual-import">
