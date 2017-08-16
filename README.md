@@ -165,4 +165,3 @@ Below is a screenshot of this module's tests running in [Wallaby](https://wallab
 
 
 ![babel-plugin-dual-import screenshot](./screenshot.png)
-
