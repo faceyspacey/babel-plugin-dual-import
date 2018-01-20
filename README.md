@@ -99,6 +99,7 @@ If you don't wanna do that, you can dig through your webpack stats and manually 
   }
 </script>
 ```
+**Or if you already use the [webpack html plugin](https://webpack.js.org/plugins/html-webpack-plugin/) as part of your build process, take a look at the [flush chunks html plugin](https://github.com/m4r1vs/webpack-flush-chunks-html) for webpack. It identifies all your generated css-chunks and adds them to your html file like shown above during build!
 
 ## Usage with [react-universal-component](https://github.com/faceyspacey/react-universal-component) and [webpack-flush-chunks](https://github.com/faceyspacey/webpack-flush-chunks)
 
