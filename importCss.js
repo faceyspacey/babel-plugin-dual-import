@@ -22,11 +22,15 @@ module.exports = function(chunkName) {
 
     return
   }
-  
-  if (ADDED[href] === true) {
+
+  if (ADDED[href] === 'pending') {
+    return Promise.reject();
+  }
+  if (ADDED[href] === 'resolved') {
     return Promise.resolve();
   }
-  ADDED[href] = true;
+
+  ADDED[href] = 'pending';
 
   var head = document.getElementsByTagName('head')[0]
   var link = document.createElement('link')
@@ -44,6 +48,7 @@ module.exports = function(chunkName) {
       link.onerror = link.onload = null // avoid mem leaks in IE.
       clearTimeout(timeout)
       var message = 'could not load css chunk:${chunkName}'
+      ADDED[href] = 'rejected';
       reject(new Error(message))
     }
 
@@ -53,6 +58,7 @@ module.exports = function(chunkName) {
     img.onerror = function() {
       link.onerror = img.onerror = null // avoid mem leaks in IE.
       clearTimeout(timeout)
+      ADDED[href] = 'resolved';
       resolve()
     }
 
