@@ -101,6 +101,18 @@ If you don't wanna do that, you can dig through your webpack stats and manually 
 ```
 **Or if you already use the [html-webpack-plugin](https://webpack.js.org/plugins/html-webpack-plugin/) as part of your build process, take a look at the [flush-chunks-html](https://github.com/m4r1vs/webpack-flush-chunks-html) plugin for webpack. It identifies all your generated css-chunks and adds them to your html file like shown above during build!**
 
+In development, a warning will be logged if there are any JS bundles dynamically imported which are not associated with a css chunk in __CSS_CHUNKS__. 
+This warning can be silenced by setting the CSS chunk path for a module to `no-css-chunk-expected`. For instance:
+
+```html
+<script>
+  window.__CSS_CHUNKS__ = {
+    'base/Page1': '/static/base/Page1.css',
+    'some-module': 'no-css-chunk-expected',
+  }
+</script>
+```
+
 ## Usage with [react-universal-component](https://github.com/faceyspacey/react-universal-component) and [webpack-flush-chunks](https://github.com/faceyspacey/webpack-flush-chunks)
 
 When using `webpack-flush-chunks` you will have to supply the `chunkNames` option, not the `moduleIds` option since this plugin is based on chunk names. Here's an example:
